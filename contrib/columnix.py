@@ -46,6 +46,7 @@ Example read (C):
 from ctypes import cdll, util
 from ctypes import (c_char_p, c_size_t, c_void_p, c_int, c_int32, c_int64,
                     c_bool, c_float, c_double)
+import ctypes
 
 lib = cdll.LoadLibrary(util.find_library("columnix"))
 
@@ -57,7 +58,8 @@ cx_writer_free = lib.cx_writer_free
 cx_writer_free.argtypes = [c_void_p]
 
 cx_writer_add_column = lib.cx_writer_add_column
-cx_writer_add_column.argtypes = [c_void_p, c_char_p, c_int, c_int, c_int, c_int]
+cx_writer_add_column.argtypes = [
+    c_void_p, c_char_p, c_int, c_int, c_int, c_int]
 
 cx_writer_put_null = lib.cx_writer_put_null
 cx_writer_put_null.argtypes = [c_void_p, c_size_t]
@@ -117,13 +119,16 @@ class Writer(object):
 
     def __enter__(self):
         assert self.writer is None
-        self.writer = cx_writer_new(self.path, self.row_group_size)
+        self.writer = cx_writer_new(
+            self.path.encode('utf-8'), ctypes.c_size_t(self.row_group_size))
         if not self.writer:
             raise RuntimeError("failed to create writer for %s" % self.path)
         for column in self.columns:
-            if not cx_writer_add_column(self.writer, column.name, column.type,
-                                         column.encoding, column.compression,
-                                         column.level):
+            if not cx_writer_add_column(self.writer, column.name.encode('utf-8'),
+                                        ctypes.c_int(column.type),
+                                        ctypes.c_int(column.encoding),
+                                        ctypes.c_int(column.compression),
+                                        ctypes.c_int(column.level)):
                 raise RuntimeError("failed to add column")
         return self
 
@@ -169,5 +174,21 @@ class Writer(object):
             raise RuntimeError("put_dbl(%d, %r)" % (column, value))
 
     def _put_str(self, column, value):
-        if not cx_writer_put_str(self.writer, column, value):
+        if not cx_writer_put_str(self.writer, c_size_t(column), value.encode('utf-8')):
             raise RuntimeError("put_str(%d, %r)" % (column, value))
+
+    # from columnix import Writer, Column, I64, I32, STR, LZ4, ZSTD
+
+
+if __name__ == '__main__':
+    columns = [Column(I64, "timestamp", compression=LZ4),
+               Column(STR, "email", compression=ZSTD),
+               Column(I32, "id")]
+
+    rows = [(1400000000000, "foo@bar.com", 23),
+            (1400000001000, "foo@bar.com", 45),
+            (1400000002000, "baz@bar.com", 67)]
+
+    with Writer("example.cx", columns, row_group_size=2) as writer:
+        for row in rows:
+            writer.put(row)
