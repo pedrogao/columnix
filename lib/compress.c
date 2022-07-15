@@ -1,10 +1,9 @@
-#include <limits.h>
-#include <stdlib.h>
-
-#include <lz4hc.h>
-#include <zstd.h>
-
 #include "compress.h"
+
+#include <limits.h>
+#include <lz4hc.h>
+#include <stdlib.h>
+#include <zstd.h>
 
 static void *cx_compress_lz4(int level, const void *src, size_t src_size,
                              size_t *dest_size)

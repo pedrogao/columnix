@@ -1,7 +1,7 @@
 PREFIX  ?= /usr/local
 BINDIR ?= $(PREFIX)/bin
 
-CFLAGS += -std=c99 -Os -g -pedantic -Wall
+CFLAGS += -std=c11 -Os -g -pedantic -Wall -I../lib 
 LDLIBS = -lcolumnix
 
 SRC = $(wildcard *.c)

@@ -1,12 +1,11 @@
 #define _BSD_SOURCE
 #include <stdio.h>
 
+#include "helpers.h"
 #include "reader.h"
 #include "row.h"
-#include "writer.h"
-
-#include "helpers.h"
 #include "temp_file.h"
+#include "writer.h"
 
 #define COLUMN_COUNT 6
 #define ROW_GROUP_COUNT 4

@@ -1212,9 +1212,10 @@ print_result:
         fputs(" / ", MUNIT_OUTPUT_FILE);
         munit_print_time(MUNIT_OUTPUT_FILE,
                          report.cpu_clock / ((double)report.successful));
-        fprintf(MUNIT_OUTPUT_FILE, " CPU ]\n  %-" MUNIT_XSTRINGIFY(
-                                       MUNIT_TEST_NAME_LEN) "s Total: [ ",
-                "");
+        fprintf(
+            MUNIT_OUTPUT_FILE,
+            " CPU ]\n  %-" MUNIT_XSTRINGIFY(MUNIT_TEST_NAME_LEN) "s Total: [ ",
+            "");
         munit_print_time(MUNIT_OUTPUT_FILE, report.wall_clock);
         fputs(" / ", MUNIT_OUTPUT_FILE);
         munit_print_time(MUNIT_OUTPUT_FILE, report.cpu_clock);
@@ -1493,7 +1494,7 @@ static void munit_print_help(int argc,
         " --color auto|always|never\n"
         "           Colorize (or don't) the output.\n"
         /* 12345678901234567890123456789012345678901234567890123456789012345678901234567890
-           */
+         */
         " --help    Print this help message and exit.\n");
 #if defined(MUNIT_NL_LANGINFO)
     setlocale(LC_ALL, "");

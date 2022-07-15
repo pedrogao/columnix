@@ -1,6 +1,8 @@
 #define _GNU_SOURCE
 #define _FILE_OFFSET_BITS 64
 
+#include "reader.h"
+
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,7 +12,6 @@
 
 #include "compress.h"
 #include "file.h"
-#include "reader.h"
 #include "row.h"
 
 struct cx_reader {

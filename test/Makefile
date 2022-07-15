@@ -1,4 +1,4 @@
-CFLAGS += -std=c99 -I../lib -g -pedantic -Wall
+CFLAGS += -std=c11 -I../lib -g -pedantic -Wall
 
 ifneq ($(shell uname -s), Darwin)
   LDFLAGS += -pthread

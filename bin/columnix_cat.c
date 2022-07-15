@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <columnix/reader.h>
-#include <columnix/writer.h>
+#include "reader.h"
+#include "writer.h"
 
 static void show_usage(const char *name)
 {

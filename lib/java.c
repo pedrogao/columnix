@@ -1,7 +1,8 @@
+#include "java.h"
+
 #include <assert.h>
 #include <string.h>
 
-#include "java.h"
 #include "reader.h"
 #include "writer.h"
 

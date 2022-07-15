@@ -1,11 +1,12 @@
 #define _BSD_SOURCE
+
+#include "column.h"
+
 #include <assert.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/mman.h>
 #include <unistd.h>
-
-#include "column.h"
 
 // when SSE4.2 optimizations are enabled, we make sure there are
 // at least 16 initialized bytes after each column value

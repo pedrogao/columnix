@@ -1,10 +1,12 @@
 #define _GNU_SOURCE
+
+#include "predicate.h"
+
 #include <assert.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "match.h"
-#include "predicate.h"
 
 enum cx_predicate_type {
     CX_PREDICATE_TRUE,

@@ -1,6 +1,6 @@
-#include <stdio.h>
-
 #include "row.h"
+
+#include <stdio.h>
 
 #include "helpers.h"
 

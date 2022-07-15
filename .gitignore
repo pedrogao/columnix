@@ -19,3 +19,5 @@ bin/columnix_dump
 bin/columnix_head
 
 *.pyc
+.idea
+.vscode

@@ -1,9 +1,10 @@
+#include "row_group.h"
+
 #include <assert.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "compress.h"
-#include "row_group.h"
 
 static const size_t cx_row_group_column_initial_size = 8;
 

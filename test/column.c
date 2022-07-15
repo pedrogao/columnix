@@ -1,8 +1,8 @@
+#include "column.h"
+
 #include <limits.h>
 #include <stdio.h>
 #include <string.h>
-
-#include "column.h"
 
 #include "helpers.h"
 

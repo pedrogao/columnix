@@ -1,8 +1,9 @@
 #define _GNU_SOURCE
-#include <assert.h>
-#include <string.h>
 
 #include "match.h"
+
+#include <assert.h>
+#include <string.h>
 
 #ifdef CX_AVX512
 #include "avx512.h"

@@ -1,10 +1,11 @@
 #define __STDC_LIMIT_MACROS
+
+#include "index.h"
+
 #include <assert.h>
 #include <float.h>
 #include <stdint.h>
 #include <stdlib.h>
-
-#include "index.h"
 
 static void cx_index_update_bit(struct cx_index *, struct cx_column_cursor *);
 static void cx_index_update_i32(struct cx_index *, struct cx_column_cursor *);

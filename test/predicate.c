@@ -1,6 +1,6 @@
-#include <stdio.h>
-
 #include "predicate.h"
+
+#include <stdio.h>
 
 #include "helpers.h"
 

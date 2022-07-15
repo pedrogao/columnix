@@ -2,6 +2,8 @@
 #define _FILE_OFFSET_BITS 64
 #define _LARGEFILE_SOURCE
 
+#include "writer.h"
+
 #include <assert.h>
 #include <fcntl.h>
 #include <stdio.h>
@@ -11,7 +13,6 @@
 
 #include "compress.h"
 #include "file.h"
-#include "writer.h"
 
 #define CX_NULL_COMPRESSION_TYPE CX_COMPRESSION_LZ4
 #define CX_NULL_COMPRESSION_LEVEL 0

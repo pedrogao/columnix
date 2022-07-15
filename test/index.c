@@ -1,8 +1,8 @@
 #define __STDC_LIMIT_MACROS
+#include "index.h"
+
 #include <stdint.h>
 #include <stdio.h>
-
-#include "index.h"
 
 #include "helpers.h"
 

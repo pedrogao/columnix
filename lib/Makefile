@@ -13,7 +13,7 @@ PKGCONFIGDIR ?= $(LIBDIR)/pkgconfig
 
 LDLIBS = -llz4 -lzstd
 
-CFLAGS += -std=c99 -g -pedantic -Wall -pthread -fvisibility=hidden
+CFLAGS += -std=c11 -g -pedantic -Wall -pthread -fvisibility=hidden
 LDFLAGS += -fvisibility=hidden
 
 OPTFLAGS ?= -O3 -march=native

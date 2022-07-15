@@ -1,7 +1,7 @@
+#include "row.h"
+
 #include <assert.h>
 #include <stdlib.h>
-
-#include "row.h"
 
 struct cx_row_cursor {
     struct cx_row_group *row_group;

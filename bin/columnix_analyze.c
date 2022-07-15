@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <sys/stat.h>
 
-#include <columnix/reader.h>
+#include "reader.h"
 
 const char *unknown_str = "<!> UNKNOWN";
 
