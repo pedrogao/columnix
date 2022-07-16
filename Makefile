@@ -2,6 +2,10 @@
 lib:
 	$(MAKE) -C lib $@
 
+.PHONY: bin
+bin:
+	$(MAKE) -C bin
+
 .PHONY: test
 test: lib
 	$(MAKE) -C test $@

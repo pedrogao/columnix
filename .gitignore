@@ -21,3 +21,4 @@ bin/columnix_head
 *.pyc
 .idea
 .vscode
+*.cx
