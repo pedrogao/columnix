@@ -48,61 +48,79 @@ from ctypes import (c_char_p, c_size_t, c_void_p, c_int, c_int32, c_int64,
                     c_bool, c_float, c_double)
 import ctypes
 
-lib = cdll.LoadLibrary(util.find_library("columnix"))
+# 加载 column library
+if util.find_library("columnix"):
+    lib = cdll.LoadLibrary(util.find_library("columnix"))
+else:
+    lib = cdll.LoadLibrary('./lib/libcolumnix.1.0.0.dylib')
 
+# Writer 构造函数
 cx_writer_new = lib.cx_writer_new
 cx_writer_new.argtypes = [c_char_p, c_size_t]
 cx_writer_new.restype = c_void_p
 
+# Writer 析构函数
 cx_writer_free = lib.cx_writer_free
 cx_writer_free.argtypes = [c_void_p]
 
+# Writer 新增一列
 cx_writer_add_column = lib.cx_writer_add_column
 cx_writer_add_column.argtypes = [
     c_void_p, c_char_p, c_int, c_int, c_int, c_int]
 
+# Writer 添加 null 数据
 cx_writer_put_null = lib.cx_writer_put_null
 cx_writer_put_null.argtypes = [c_void_p, c_size_t]
 
+# Writer 添加 bit 数据
 cx_writer_put_bit = lib.cx_writer_put_bit
 cx_writer_put_bit.argtypes = [c_void_p, c_size_t, c_bool]
 
+# Writer 添加 i32 数据
 cx_writer_put_i32 = lib.cx_writer_put_i32
 cx_writer_put_i32.argtypes = [c_void_p, c_size_t, c_int32]
 
+# Writer 添加 i64 数据
 cx_writer_put_i64 = lib.cx_writer_put_i64
 cx_writer_put_i64.argtypes = [c_void_p, c_size_t, c_int64]
 
+# Writer 添加 float 数据
 cx_writer_put_flt = lib.cx_writer_put_flt
 cx_writer_put_flt.argtypes = [c_void_p, c_size_t, c_float]
 
+# Writer 添加 double 数据
 cx_writer_put_dbl = lib.cx_writer_put_dbl
 cx_writer_put_dbl.argtypes = [c_void_p, c_size_t, c_double]
 
+# Writer 添加 string 数据
 cx_writer_put_str = lib.cx_writer_put_str
 cx_writer_put_str.argtypes = [c_void_p, c_size_t, c_char_p]
 
+# Writer 完成，是否刷磁盘
 cx_writer_finish = lib.cx_writer_finish
 cx_writer_finish.argtypes = [c_void_p, c_bool]
 
-BIT = 0
-I32 = 1
-I64 = 2
-FLT = 3
-DBL = 4
-STR = 5
-
+# 数据类型
+BIT = 0  # 位
+I32 = 1  # interger 32
+I64 = 2  # interger 64
+FLT = 3  # float
+DBL = 4  # double
+STR = 5  # string
+# 压缩算法
 LZ4 = 1
 LZ4HC = 2
 ZSTD = 3
 
 
 class Column(object):
+    """ 列定义 """
+
     def __init__(self, type, name, encoding=None, compression=None, level=1):
         self.type = type
         self.name = name
-        self.encoding = encoding or 0
-        self.compression = compression or 0
+        self.encoding = encoding or 0  # 0 表示无编码
+        self.compression = compression or 0  # 0 表示无压缩
         self.level = level
 
 
@@ -181,14 +199,15 @@ class Writer(object):
 
 
 if __name__ == '__main__':
+    # 列定义
     columns = [Column(I64, "timestamp", compression=LZ4),
                Column(STR, "email", compression=ZSTD),
                Column(I32, "id")]
-
+    # 行数据
     rows = [(1400000000000, "foo@bar.com", 23),
             (1400000001000, "foo@bar.com", 45),
             (1400000002000, "baz@bar.com", 67)]
-
+    # 虽然以列的方式来存储，但数据表示仍是行格式，更加符合业务需求
     with Writer("example.cx", columns, row_group_size=2) as writer:
         for row in rows:
             writer.put(row)

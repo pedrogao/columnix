@@ -16,6 +16,7 @@ typedef union {
     uint64_t len;
 } cx_index_value_t;
 
+// 索引
 struct cx_index {
     uint64_t count;
     cx_index_value_t min;

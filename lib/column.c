@@ -17,6 +17,7 @@
 
 static const size_t cx_column_initial_size = 64;
 
+// 列定义
 struct cx_column {
     union {
         void *mutable;
@@ -27,22 +28,24 @@ struct cx_column {
     size_t size;
     enum cx_column_type type;
     enum cx_encoding_type encoding;
-    bool mmapped;
+    bool mmapped;  // 是否 memory mmap
 };
 
+// 列浮标
 struct cx_column_cursor {
     const struct cx_column *column;
-    const void *start;
-    const void *end;
-    const void *position;
-    cx_value_t buffer[CX_BATCH_SIZE];
+    const void *start;                 // 开始位置
+    const void *end;                   // 结束位置
+    const void *position;              // 当前位置
+    cx_value_t buffer[CX_BATCH_SIZE];  // 缓存
 };
 
 static struct cx_column *cx_column_new_size(enum cx_column_type type,
                                             enum cx_encoding_type encoding,
                                             size_t size, size_t count)
 {
-    struct cx_column *column = calloc(1, sizeof(*column));
+    struct cx_column *column =
+        calloc(1, sizeof(*column));  // 这样骚写法，容易误解
     if (!column)
         return NULL;
     if (size) {

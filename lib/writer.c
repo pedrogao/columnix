@@ -17,6 +17,7 @@
 #define CX_NULL_COMPRESSION_TYPE CX_COMPRESSION_LZ4
 #define CX_NULL_COMPRESSION_LEVEL 0
 
+// 列物理表示
 struct cx_writer_physical_column {
     struct cx_column *values;
     struct cx_column *nulls;
